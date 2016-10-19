@@ -16,9 +16,12 @@ public class PlayerController : MonoBehaviour
 	public float velocity = 25f;
 	public float jumpForce = 100f;
 	public Transform spawnPoint;
-
-
 	public Camera camera;
+
+
+	[Header("Sound Clips")]
+	public AudioSource jumpSound;
+	public AudioSource deadSound;
 
 
 	// Use this for initialization
@@ -55,6 +58,7 @@ public class PlayerController : MonoBehaviour
 			if (Input.GetKeyDown (KeyCode.Space)) 
 			{
 				this._jump = 1f;
+				this.jumpSound.Play ();
 			}
 				
 			this._rigitbody.AddForce (new Vector2 (this._move * this.velocity, this._jump * this.jumpForce), ForceMode2D.Force);
@@ -109,6 +113,7 @@ public class PlayerController : MonoBehaviour
 		{
 			//move the player's position to the spawn's point position
 			this._transform.position = this.spawnPoint.position;
+			this.deadSound.Play();
 		}
 	}
 
