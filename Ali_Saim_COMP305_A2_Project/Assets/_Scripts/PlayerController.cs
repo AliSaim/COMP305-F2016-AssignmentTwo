@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
 	//this methods flips the hero bitmap across the x- axis
 	private void _flip()
 	{
-		if (this._isFacingRight == true) 
+		if (this._isFacingRight) 
 		{
 			this._transform.localScale = new Vector2 (0.3f, 0.3f);
 		} 
