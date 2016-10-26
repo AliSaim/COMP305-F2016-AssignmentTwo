@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
 	private GameObject _spawnPoint;
 	private GameObject _camera;
 
+	private GameObject _gameControllerObject;
+	private GameController _gameController;
+
 
 	//PUBLIC INSTANCE VARIABLES(for TESTING)
 	public float velocity = 25f;
@@ -24,6 +27,9 @@ public class PlayerController : MonoBehaviour
 	[Header("Sound Clips")]
 	public AudioSource jumpSound;
 	public AudioSource deadSound;
+	public AudioSource coinSound;
+	public AudioSource damageSound;
+	public AudioSource enemyDeadSound;
 
 
 	// Use this for initialization
@@ -99,6 +105,10 @@ public class PlayerController : MonoBehaviour
 		this._animator = GetComponent<Animator> ();
 		this._camera = GameObject.FindWithTag ("MainCamera");
 		this._spawnPoint = GameObject.FindWithTag ("SpawnPoint");
+
+		this._gameControllerObject = GameObject.Find ("Game Controller");
+		this._gameController = this._gameControllerObject.GetComponent<GameController> () as GameController;
+
 		this._move = 0f;
 		this._isFacingRight = true;
 		this._isPlayerGrounded = false;
@@ -125,6 +135,25 @@ public class PlayerController : MonoBehaviour
 			//move the player's position to the spawn's point position
 			this._transform.position = this._spawnPoint.transform.position;
 			this.deadSound.Play();
+			this._gameController.LivesValue -= 1;
+		}
+
+
+		if (other.gameObject.CompareTag ("Coin")) 
+		{
+			//play the coin sound when player collidies with coin objects
+			Destroy(other.gameObject);
+			this.coinSound.Play();
+			this._gameController.ScoreValue += 100;
+		}
+
+
+		//if player is touched by the enemy
+		if (other.gameObject.CompareTag ("Enemy")) 
+		{
+			this._transform.position = this._spawnPoint.transform.position;
+			this.damageSound.Play ();
+			this._gameController.LivesValue -= 1;
 		}
 	}
 
@@ -140,5 +169,15 @@ public class PlayerController : MonoBehaviour
 	{
 		this._animator.SetInteger ("HeroState", 2);
 		this._isPlayerGrounded = false;
+	}
+
+	//debug if player lands on object's head
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if(other.gameObject.CompareTag("Enemy"))
+		{
+			this.enemyDeadSound.Play ();
+			Destroy (other.gameObject);
+		}
 	}
 }

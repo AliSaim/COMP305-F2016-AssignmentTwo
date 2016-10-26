@@ -20,6 +20,7 @@ public class EnemyController : MonoBehaviour {
 
 
 
+
 	// Use this for initialization
 	void Start () {
 		//make a reference to this object's Trannsform and RigitBody2D components
@@ -95,7 +96,7 @@ public class EnemyController : MonoBehaviour {
 			this._isGrounded = false;
 		}
 	}
-
+		
 
 	//this methods flips the hero bitmap across the x- axis
 	private void _flip()
