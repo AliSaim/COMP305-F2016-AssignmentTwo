@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 	public AudioSource damageSound;
 	public AudioSource enemyDeadSound;
 	public AudioSource millCutSound;
+	public AudioSource spikeSound;
 
 
 	// Use this for initialization
@@ -164,6 +165,14 @@ public class PlayerController : MonoBehaviour
 			this._transform.position = this._spawnPoint.transform.position;
 			this.millCutSound.Play ();
 			this._gameController.LivesValue -= 1;
+		}
+
+		//if player collides with spikes
+		if (other.gameObject.CompareTag ("Spike")) 
+		{
+			this._transform.position = this._spawnPoint.transform.position;
+			this.spikeSound.Play ();
+			this._gameController.LivesValue -= 1;	
 		}
 
 
