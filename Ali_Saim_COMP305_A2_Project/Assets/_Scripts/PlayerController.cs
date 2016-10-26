@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
 	public AudioSource coinSound;
 	public AudioSource damageSound;
 	public AudioSource enemyDeadSound;
+	public AudioSource millCutSound;
 
 
 	// Use this for initialization
@@ -155,6 +156,18 @@ public class PlayerController : MonoBehaviour
 			this.damageSound.Play ();
 			this._gameController.LivesValue -= 1;
 		}
+
+
+		//if player collidies with the mill
+		if (other.gameObject.CompareTag ("Mill")) 
+		{
+			this._transform.position = this._spawnPoint.transform.position;
+			this.millCutSound.Play ();
+			this._gameController.LivesValue -= 1;
+		}
+
+
+
 	}
 
 	private void OnCollisionStay2D(Collision2D other)
