@@ -28,9 +28,11 @@ public class GameController : MonoBehaviour {
 		set
 		{
 			this._livesValue = value;
+
 			if (this._livesValue <= 0) 
 			{
-				this.LivesLabel.text = "Lives: " + this._livesValue;
+				SceneManager.LoadScene ("GameOver");
+				//this.LivesLabel.text = "Lives: " + this._livesValue;
 			} 
 			else 
 			{

@@ -1,5 +1,18 @@
-﻿using UnityEngine;
+﻿/* Student First Name: Ali
+ * Student Last Name: Saim
+ * Student Number: 300759480
+ * Course: COMP305 - Fall 2016
+ * Prof: Tom Tsiliopoulos
+ * Last Modified by: Ali Saim
+ * Date Last Modified: Oct 26th 2016
+ * Programe Description: This is one of the script file that is use to make the second assignemnt for comp 305
+ */
+
+using UnityEngine;
 using System.Collections;
+
+
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour 
 {
@@ -175,7 +188,11 @@ public class PlayerController : MonoBehaviour
 			this._gameController.LivesValue -= 1;	
 		}
 
-
+		if (other.gameObject.CompareTag ("Door")) 
+		{
+			SceneManager.LoadScene ("GameWin");
+		}
+			
 
 	}
 
